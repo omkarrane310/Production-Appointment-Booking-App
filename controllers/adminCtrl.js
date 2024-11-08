@@ -65,34 +65,13 @@ const changeAccountStatusController = async (req, res) => {
     });
   }
 };
-// AdminCtrl.js - Add the block/unblock functionality
-const changeUserBlockStatusController = async (req, res) => {
-  try {
-    const { userId, isBlocked } = req.body;
-    const user = await userModel.findByIdAndUpdate(
-      userId,
-      { isBlocked },
-      { new: true }
-    );
-    res.status(200).send({
-      success: true,
-      message: isBlocked ? "User has been blocked" : "User has been unblocked",
-      data: user,
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(500).send({
-      success: false,
-      message: "Error while updating user block status",
-      error,
-    });
-  }
-};
+
+
 
 
 module.exports = {
   getAllDoctorsController,
   getAllUsersController,
   changeAccountStatusController,
-  changeUserBlockStatusController
+ 
 };

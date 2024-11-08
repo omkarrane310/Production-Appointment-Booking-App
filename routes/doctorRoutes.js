@@ -7,10 +7,19 @@ const {
   updateStatusController,
   deleteDoctorController,
   getRatings,
-  addRating
+  addRating,
+  getCertificateController
 } = require("../controllers/doctorCtrl");
 const authMiddleware = require("../middlewares/authMiddleware");
 const router = express.Router();
+
+// 
+
+
+router.get("/certificate/:filename", getCertificateController); // Get Certificate File
+
+
+// 
 
 //POST SINGLE DOC INFO
 router.post("/getDoctorInfo", authMiddleware, getDoctorInfoController);

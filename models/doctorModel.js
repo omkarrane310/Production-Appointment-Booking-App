@@ -1,72 +1,73 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 
-const doctorSchema = new mongoose.Schema(
-  {
-    userId: {
-      type: String,
-    },
-    firstName: {
-      type: String,
-      required: [true, "first name is required"],
-    },
-    lastName: {
-      type: String,
-      required: [true, "last name is required"],
-    },
-    phone: {
-      type: String,
-      required: [true, "phone no is required"],
-    },
-    email: {
-      type: String,
-      required: [true, "email is required"],
-    },
-    website: {
-      type: String,
-    },
-    address: {
-      type: String,
-      required: [true, "address is required"],
-    },
-    specialization: {
-      type: String,
-      required: [true, "specialization is required"],
-    },
-    experience: {
-      type: String,
-      required: [true, "experience is required"],
-    },
-    feesPerCunsaltation: {
-      type: Number,
-      required: [true, "fee is required"],
-    },
-    status: {
-      type: String,
-      default: "pending",
-    },
-    timings: {
-      type: Object,
-      required: [true, "work timing is required"],
-    },
-    ratings: [
-      {
-        userName: {
-          type: String,
-          required: true,
-        },
-        rating: {
-          type: Number,
-          required: true,
-        },
-        feedback: {
-          type: String,
-          required: true,
-        },
-      },
-    ],
+const doctorSchema = new mongoose.Schema({
+  userId: {
+    type: String,
   },
-  { timestamps: true }
-);
+  firstName: {
+    type: String,
+    required: [true, "first name is required"],
+  },
+  lastName: {
+    type: String,
+    required: [true, "last name is required"],
+  },
+  phone: {
+    type: String,
+    required: [true, "phone no is required"],
+  },
+  email: {
+    type: String,
+    required: [true, "email is required"],
+  },
+  website: {
+    type: String,
+  },
+  address: {
+    type: String,
+    required: [true, "address is required"],
+  },
+  specialization: {
+    type: String,
+    required: [true, "specialization is required"],
+  },
+  experience: {
+    type: String,
+    required: [true, "experience is required"],
+  },
+  feesPerCunsaltation: {
+    type: Number,
+    required: [true, "fee is required"],
+  },
+  status: {
+    type: String,
+    default: "pending",
+  },
+  timings: {
+    type: Object,
+    required: [true, "work timing is required"],
+  },
+  ratings: [
+    {
+      userName: {
+        type: String,
+        required: true,
+      },
+      rating: {
+        type: Number,
+        required: true,
+      },
+      feedback: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
+  certificate: {
+    data: Buffer,   // Storing the file as a buffer in MongoDB
+    contentType: String,   // Type of the file (PDF, image, etc.)
+  },
+}, { timestamps: true });
 
 const doctorModel = mongoose.model("doctors", doctorSchema);
 module.exports = doctorModel;

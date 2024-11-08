@@ -3,7 +3,7 @@ const {
   getAllUsersController,
   getAllDoctorsController,
   changeAccountStatusController,
-  changeUserBlockStatusController,
+ 
 } = require("../controllers/adminCtrl");
 const authMiddleware = require("../middlewares/authMiddleware");
 
@@ -21,11 +21,7 @@ router.post(
   authMiddleware,
   changeAccountStatusController
 );
-//route for USER Block / unblock
-router.post(
-  "/changeUserBlockStatus",
-  authMiddleware,
-  changeUserBlockStatusController
-);
+
+
 
 module.exports = router;

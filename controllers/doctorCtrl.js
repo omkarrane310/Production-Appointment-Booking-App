@@ -1,6 +1,44 @@
 const appointmentModel = require("../models/appointmentModel");
 const doctorModel = require("../models/doctorModel");
 const userModel = require("../models/userModels");
+
+
+
+// doctorCtrl.js
+
+const mongoose = require("mongoose");
+const Grid = require("gridfs-stream");
+
+const conn = mongoose.connection;
+let gfs;
+conn.once("open", () => {
+  gfs = Grid(conn.db, mongoose.mongo);
+  gfs.collection("certificates");
+});
+
+// Endpoint to get certificate file
+const getCertificateController = (req, res) => {
+  gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
+    if (!file || file.length === 0) {
+      return res.status(404).json({ err: "No file exists" });
+    }
+
+    if (file.contentType === "application/pdf" || file.contentType.startsWith("image/")) {
+      const readstream = gfs.createReadStream(file.filename);
+      readstream.pipe(res);
+    } else {
+      res.status(404).json({ err: "Not an image or PDF" });
+    }
+  });
+};
+
+
+
+
+
+
+
+
 const getDoctorInfoController = async (req, res) => {
   try {
     const doctor = await doctorModel.findOne({ userId: req.body.userId });
@@ -169,5 +207,6 @@ module.exports = {
   updateStatusController,
   deleteDoctorController,
   getRatings,
-  addRating
+  addRating,
+  getCertificateController
 };
